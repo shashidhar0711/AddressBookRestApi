@@ -47,5 +47,45 @@ namespace AddressBookRestApiTest
             IRestResponse response = client.Execute(request);
             return response;
         }
+
+        /// <summary>
+        /// UC23
+        /// Givens the multiple employee on post should return contacts.
+        /// </summary>
+        [TestMethod]
+        public void GivenMultipleEmployee_OnPost_ShouldReturnContacts()
+        {
+            /// Arrange
+            List<AddressBookModel> addressBookListRestApi = new List<AddressBookModel>();
+            addressBookListRestApi.Add(new AddressBookModel { Name = "Varsha", Address = "Kolkatta", PhoneNumber = "9945467618", Email="varsha.varshu@gmail.com" });
+            addressBookListRestApi.Add(new AddressBookModel { Name = "Vidhya", Address = "Delhi", PhoneNumber = "9946667618", Email = "vidhya.vid@gmail.com" });
+            addressBookListRestApi.ForEach(employeeData =>
+            {
+                RestRequest request = new RestRequest("/contact", Method.POST);
+                JObject jObjectBody = new JObject();
+                jObjectBody.Add("Name", employeeData.Name);
+                jObjectBody.Add("Address", employeeData.Address);
+                jObjectBody.Add("PhoneNumber", employeeData.PhoneNumber);
+                jObjectBody.Add("Email", employeeData.Email);
+
+                /// Act
+                request.AddParameter("application/json", jObjectBody, ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+                /// Assert
+                Assert.AreEqual(response.StatusCode, HttpStatusCode.Created);
+                AddressBookModel dataResponse = JsonConvert.DeserializeObject<AddressBookModel>(response.Content);
+                Assert.AreEqual(employeeData.Name, dataResponse.Name);
+                Assert.AreEqual(employeeData.Address, dataResponse.Address);
+                Assert.AreEqual(employeeData.PhoneNumber, dataResponse.PhoneNumber);
+                Assert.AreEqual(employeeData.Email, dataResponse.Email);
+                Console.WriteLine(response.Content);
+            });
+            /// Act
+            IRestResponse response = GetEmployeeList();
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            List<AddressBookModel> dataResponse = JsonConvert.DeserializeObject<List<AddressBookModel>>(response.Content);
+            /// Assert
+            Assert.AreEqual(6, dataResponse.Count);
+        }
     }
 }
