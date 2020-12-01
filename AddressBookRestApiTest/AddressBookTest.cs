@@ -53,7 +53,7 @@ namespace AddressBookRestApiTest
         /// Givens the multiple employee on post should return contacts.
         /// </summary>
         [TestMethod]
-        public void GivenMultipleEmployee_OnPost_ShouldReturnContacts()
+        public void GivenMultipleContact_OnPost_ShouldReturnContacts()
         {
             /// Arrange
             List<AddressBookModel> addressBookListRestApi = new List<AddressBookModel>();
@@ -93,7 +93,7 @@ namespace AddressBookRestApiTest
         /// Givens the employee on update should return updated contact.
         /// </summary>
         [TestMethod]
-        public void GivenEmployee_OnUpdate_ShouldReturnUpdatedContact()
+        public void GivenContact_OnUpdate_ShouldReturnUpdatedContact()
         {
             /// Arrange
             RestRequest request = new RestRequest("/contact/4", Method.PUT);
@@ -112,6 +112,22 @@ namespace AddressBookRestApiTest
             Assert.AreEqual("AmravathiNagar", dataResponse.Address);
             Assert.AreEqual("9663616724", dataResponse.PhoneNumber);
             Assert.AreEqual("sharath.Shanth@gmail.com", dataResponse.Email);
+            Console.WriteLine(response.Content);
+        }
+
+        /// <summary>
+        /// UC25
+        /// Givens the contact identifier on delete should return success status.
+        /// </summary>
+        [TestMethod]
+        public void GivenContactId_OnDelete_ShouldReturnSuccessStatus()
+        {
+            /// Arrange
+            RestRequest request = new RestRequest("/contact/2", Method.DELETE);
+            /// Act
+            IRestResponse response = client.Execute(request);
+            /// Assert
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
             Console.WriteLine(response.Content);
         }
     }
