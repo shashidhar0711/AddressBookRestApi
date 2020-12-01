@@ -1,0 +1,39 @@
+{
+  "contact": [
+    {
+      "id": 1,
+      "Name": "Vijay",
+      "Address": "Bangalore",
+      "PhoneNumber": "8884808016",
+      "Email": "vijay.viji@gmail.com"
+    },
+    {
+      "id": 3,
+      "Name": "Babu",
+      "Address": "Bangarpet",
+      "PhoneNumber": "9994808016",
+      "Email": "Babu.babu@gmail.com"
+    },
+    {
+      "name": "Sharath",
+      "Address": "AmravathiNagar",
+      "PhoneNumber": "9663616724",
+      "Email": "sharath.Shanth@gmail.com",
+      "id": 4
+    },
+    {
+      "Name": "Varsha",
+      "Address": "Kolkatta",
+      "PhoneNumber": "9945467618",
+      "Email": "varsha.varshu@gmail.com",
+      "id": 5
+    },
+    {
+      "Name": "Vidhya",
+      "Address": "Delhi",
+      "PhoneNumber": "9946667618",
+      "Email": "vidhya.vid@gmail.com",
+      "id": 6
+    }
+  ]
+}
