@@ -87,5 +87,32 @@ namespace AddressBookRestApiTest
             /// Assert
             Assert.AreEqual(6, dataResponse.Count);
         }
+
+        /// <summary>
+        /// UC24
+        /// Givens the employee on update should return updated contact.
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployee_OnUpdate_ShouldReturnUpdatedContact()
+        {
+            /// Arrange
+            RestRequest request = new RestRequest("/contact/4", Method.PUT);
+            JObject jObjectBody = new JObject();
+            jObjectBody.Add("name", "Sharath");
+            jObjectBody.Add("Address", "AmravathiNagar");
+            jObjectBody.Add("PhoneNumber", "9663616724");
+            jObjectBody.Add("Email", "sharath.Shanth@gmail.com");
+            request.AddParameter("application/json", jObjectBody, ParameterType.RequestBody);
+            /// Act
+            IRestResponse response = client.Execute(request);
+            /// Assert
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            AddressBookModel dataResponse = JsonConvert.DeserializeObject<AddressBookModel>(response.Content);
+            Assert.AreEqual("Sharath", dataResponse.Name);
+            Assert.AreEqual("AmravathiNagar", dataResponse.Address);
+            Assert.AreEqual("9663616724", dataResponse.PhoneNumber);
+            Assert.AreEqual("sharath.Shanth@gmail.com", dataResponse.Email);
+            Console.WriteLine(response.Content);
+        }
     }
 }
